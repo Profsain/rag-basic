@@ -1,6 +1,6 @@
 from langchain_classic.chains import RetrievalQA
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAI
 from dotenv import load_dotenv
@@ -37,7 +37,22 @@ chunks = text_splitter.split_text(knowledge_base)
 print(f"Number of chunks created: {len(chunks)}")
 print("Chunks created successfully.")
 # print the first 3 chunks
-for i, chunk in enumerate(chunks[:3]):
-    print(f"\nChunk {i+1}:\n{chunk}")
-    
+# for i, chunk in enumerate(chunks[:3]):
+#     print(f"\nChunk {i+1}:\n{chunk}")
+
 # step 3: Create embeddings for the chunks
+print("\nStep 3: Create embeddings for the chunks")
+print("_" * 50)
+# create embeddings for the chunks using HuggingFaceEmbeddings
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+print("Embeddings created successfully.")
+# openai embeddings
+# embeddings = OpenAIEmbeddings(api_key=api_key)
+# print first 3 embeddings
+for i, chunk in enumerate(chunks[:3]):
+    embedding = embeddings.embed_query(chunk)
+    print(f"\nEmbedding for chunk {i+1}:\n{embedding}")
+
+# step 4: Create a vector store from the embeddings 
+print("\nStep 4: Create a vector store from the embeddings")
+print("_" * 50)

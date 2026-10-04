@@ -3,5 +3,7 @@ langchain-classic
 langchain-openai
 langchain-text-splitters
 langchain-community
+langchain-huggingface
+sentence-transformers
 langchain-transformers
 chromadb
