@@ -22,13 +22,22 @@ print("_" * 50)
 with open("knowledge_base.md", "r") as file:
     knowledge_base = file.read()
 print("Knowledge base loaded successfully.")
-# print the first 500 characters of the knowledge base
-print(knowledge_base[:500])
 
 # step 2: Split the documents into chunks
 print("\nStep 2: Split the documents into chunks")
 print("_" * 50)
-# split the knowledge base into chunks of 1000 characters with an overlap of 200 characters
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+# split the knowledge base into chunks of 200 characters with an overlap of 50 characters
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=200, 
+    chunk_overlap=50,
+    separators=["\n\n", "\n", " ", ""],
+    length_function=len
+    )
 chunks = text_splitter.split_text(knowledge_base)
 print(f"Number of chunks created: {len(chunks)}")
+print("Chunks created successfully.")
+# print the first 3 chunks
+for i, chunk in enumerate(chunks[:3]):
+    print(f"\nChunk {i+1}:\n{chunk}")
+    
+# step 3: Create embeddings for the chunks
