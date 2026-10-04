@@ -1,0 +1,7 @@
+langchain
+langchain-classic
+langchain-openai
+langchain-text-splitters
+langchain-community
+langchain-transformers
+chromadb
